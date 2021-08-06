@@ -11,21 +11,23 @@ import AVFoundation /* Work with audiovisual assets, control device cameras, pro
 class ViewController: UIViewController {
     
     var player: AVAudioPlayer?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
-
-    @IBAction func keyPressed(_ sender: Any) {
+    
+    @IBAction func keyPressed(_ sender: UIButton) {
         
-        playSound()
+        let titleBlutton = sender.titleLabel?.text
+        
+        playSound(keyNote: titleBlutton!)
     }
     
-    func playSound() {
+    func playSound(keyNote: String) {
         /* Bundle is a representation of the code and resources stored in a bundle directory on disk */
         
-        let url = Bundle.main.url(forResource: "C", withExtension: "wav")
+        let url = Bundle.main.url(forResource: keyNote, withExtension: "wav")
         
         player = try! AVAudioPlayer(contentsOf: url!)
         
