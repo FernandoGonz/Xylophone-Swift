@@ -18,21 +18,19 @@ class ViewController: UIViewController {
     }
     
     @IBAction func keyPressed(_ sender: UIButton) {
-        
-        let titleBlutton = sender.titleLabel?.text
-        
-        playSound(keyNote: titleBlutton!)
+        if let keyButton = sender.titleLabel?.text {
+            sender.alpha = 0.5
+            playSound(soundName: keyButton)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                sender.alpha = 1
+            }
+        }
     }
     
-    func playSound(keyNote: String) {
-        /* Bundle is a representation of the code and resources stored in a bundle directory on disk */
-        
-        let url = Bundle.main.url(forResource: keyNote, withExtension: "wav")
-        
+    private func playSound(soundName: String) {
+        let url = Bundle.main.url(forResource: soundName, withExtension: "wav")
         player = try! AVAudioPlayer(contentsOf: url!)
-        
-        player?.play()
-        
+        player!.play()
     }
     
 }
